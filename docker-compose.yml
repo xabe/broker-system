@@ -1,0 +1,27 @@
+version: '2'
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbitmq
+  rabbitmq-producer:
+    image: xabe/broker-rabbit-producer:latest
+    ports:
+      - "8008:8008"
+    hostname: producer
+    links:
+      - rabbitmq:rabbitmq
+    depends_on:
+      - rabbitmq
+
+  rabbitmq-consumer:
+    image: xabe/broker-rabbit-consumer:latest
+    ports:
+      - "8009:8009"
+    hostname: consumer
+    links:
+      - rabbitmq:rabbitmq
+    depends_on:
+      - rabbitmq
