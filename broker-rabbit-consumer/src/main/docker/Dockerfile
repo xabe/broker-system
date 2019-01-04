@@ -10,6 +10,7 @@ RUN tar -xzf app.tar.gz
 RUN rm -rf app.tar*
 RUN chmod 777 /home/app/consumer-rabbitmq/logs
 
+ENV RABBITMQ_HOSTS="rabbitmq"
 ENV HOME_APP="/home/app/consumer-rabbitmq"
 ENV JAVA_OPTS=" -Xmx512M \
                 -Xms512M \
@@ -26,6 +27,7 @@ ENV JAVA_OPTS=" -Xmx512M \
                 -Xrunjdwp:server=y,transport=dt_socket,address=2005,suspend=n \
                 -Djava.net.preferIPv4Stack=true \
                 -Xdebug \
+                -Drabbitmq.hosts=${RABBITMQ_HOSTS} \
                 -Xlog:gc* \
                 -verbose:gc \
                 -Xlog:gc:${HOME_APP}/logs/GC.log \
