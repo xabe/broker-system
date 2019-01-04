@@ -64,7 +64,7 @@
             <AppenderRef ref="Trace"/>
         </Logger>
 
-        <Logger name="org.springframework" level="INFO" additivity="false">
+        <Logger name="org.springframework" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="Trace"/>
         </Logger>
