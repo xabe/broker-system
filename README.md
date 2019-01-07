@@ -3,7 +3,7 @@
 En este ejemplo vamos usar los broker mas **utilizados** que son:
 
  - [x] RabbitMq [producer](broker-rabbit-producer/README.md) [consumer](broker-rabbit-consumer/README.md)
- - [x] Kafka **(TODO)**
+ - [x] Kafka [producer](broker-kafka-producer/README.md) [consumer](broker-kafka-consumer/README.md)
 
 
 El stack tecnologico para hacer este ejemplos es el siguiente:

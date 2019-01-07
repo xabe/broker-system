@@ -7,21 +7,59 @@ services:
       - "15672:15672"
     hostname: rabbitmq
   rabbitmq-producer:
+    container_name: producer-rabbitmq
     image: xabe/broker-rabbit-producer:latest
     ports:
       - "8008:8008"
-    hostname: producer
+    hostname: producer-rabbitmq
     links:
       - rabbitmq:rabbitmq
     depends_on:
       - rabbitmq
-
   rabbitmq-consumer:
+    container_name: consumer-rabbitmq
     image: xabe/broker-rabbit-consumer:latest
     ports:
       - "8009:8009"
-    hostname: consumer
+    hostname: consumer-rabbitmq
     links:
       - rabbitmq:rabbitmq
     depends_on:
       - rabbitmq
+  zookeeper:
+    container_name: zookeeper
+    image: wurstmeister/zookeeper
+    hostname: zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka:2.12-2.1.0
+    hostname: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+  kafka-producer:
+    container_name: producer-kafka
+    image: xabe/broker-kafka-producer:latest
+    ports:
+      - "8010:8010"
+    hostname: producer-kafka
+    depends_on:
+      - kafka
+  kafka-consumer:
+    container_name: consumer-kafka
+    image: xabe/broker-kafka-consumer:latest
+    ports:
+      - "8011:8011"
+    hostname: consumer-kafka
+    depends_on:
+      - kafka

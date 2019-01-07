@@ -10,6 +10,8 @@
     <modules>
         <module>broker-rabbit-producer</module>
         <module>broker-rabbit-consumer</module>
+        <module>broker-kafka-producer</module>
+        <module>broker-kafka-consumer</module>
     </modules>
     <packaging>pom</packaging>
 
